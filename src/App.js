@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
 import Questionnaire from './Questionnaire';
-import Results from './Results';
 import './App.css';
 import styled from 'styled-components';
 
@@ -19,7 +18,6 @@ const Button = styled.button`
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {isToggleOn: true};		
 	}
 	render() {
 			return (
@@ -28,7 +26,6 @@ class App extends React.Component {
 					<Button> 
 						Узнать результат 
 					</Button>
-					{ this.state.isToggleOn ? <Results /> : null }
 				</div>
 			);
 		} 
