@@ -23,9 +23,6 @@ class App extends React.Component {
 			return (
 				<div className="App">
 					<Questionnaire />
-					<Button> 
-						Узнать результат 
-					</Button>
 				</div>
 			);
 		} 
