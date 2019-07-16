@@ -10,12 +10,7 @@ import './results.css';
 
 const divWrap = styled.div`
 	width: 30%;
-
 `;
-
-/**
- * @todo  Результат в ПДФ некорректный -- исправить
- */
 
 class Results extends React.Component {	
 
