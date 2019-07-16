@@ -2,7 +2,24 @@ import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import Results from '../Results';
 import questions from './questions';
+import styled from 'styled-components';
 
+const DivWrap = styled.div`
+	display: flex;	
+	flex-direction: row;
+	font-size: 1rem;
+	padding: 10%;
+`;
+
+const TabHead = styled.td`
+	text-align: center;
+	margin: 2%;
+`;
+
+const ButtonResult = styled.button`
+	margin: 2%;
+	font-size: 1rem; 
+`;
 class QuestionsObj extends React.Component {
 	constructor(props) {
 		super(props);
@@ -36,6 +53,7 @@ class QuestionsObj extends React.Component {
 	
 	return (
 		<div>
+			<DivWrap>
 			{!this.state.resultsReady&&<table>
 				<thead>
 					<tr>
@@ -48,25 +66,27 @@ class QuestionsObj extends React.Component {
 			<tbody> 
 				{
 					Object.entries(this.state.data.stages[this.state.currentStage].questions).map(([questionId, questionData]) => (
-						<tr key={questionId}>
+						<tr style={{textAlign: 'left'}} key={questionId}>
 							<td>{questionData.question}</td>
-							<td><input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1}  onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input></td>
-							<td><input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2} onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input></td>
-							<td><input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3} onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input></td>
+							<td style={{textAlign: 'center'}} ><input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1}  onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input></td>
+							<td style={{textAlign: 'center'}} ><input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2} onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input></td>
+							<td style={{textAlign: 'center'}} ><input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3} onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input></td>
 						</tr>
 					))
 				}
 			</tbody>
 			</table>}
-			{this.state.currentStage<=3&& <button onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}> 
+			</DivWrap>
+
+			{this.state.currentStage<=3&& <ButtonResult onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}> 
 			Следующая группа вопросов 
-			</button>}
-			{!this.state.resultsReady&&this.state.currentStage==4 && <button onClick={this.resultsPage} disabled={!this.nextButtonAvaliable()}> 
+			</ButtonResult>}
+			{!this.state.resultsReady&&this.state.currentStage==4 && <ButtonResult onClick={this.resultsPage} disabled={!this.nextButtonAvaliable()}> 
 			Узнать результат 
-			</button>}
+			</ButtonResult>}
 				{this.state.resultsReady&&<Results data={this.state.data} />}
-		</div>
-	);
+			</div>
+		);
 	}
 }
 
