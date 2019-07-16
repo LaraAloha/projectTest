@@ -4,7 +4,7 @@ import Results from '../Results';
 import questions from './questions';
 import './questions.css';
 import styled from 'styled-components';
-import { TiArrowRightOutline } from "react-icons/ti";
+import { GoChevronRight } from "react-icons/go";
 
 const SubTitle = styled.p`
 	font-size: 1rem;
@@ -37,6 +37,17 @@ const TabHead = styled.div`
 	margin: 2%;
 	width: 20%;
 	font-size: 1rem; 
+`;
+
+const ButtonBottom = styled.a`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 3%;
+	cursor: pointer;
+	minWidth: 200px;
+	minHeight: 20px;
+}}
 `;
 
 class QuestionsObj extends React.Component {
@@ -129,17 +140,17 @@ class QuestionsObj extends React.Component {
 			</div>
 			}
 			
-			{this.state.currentStage<=3&&<a onClick={this.nextStage} style={{padding: '3%', cursor: 'pointer', minWidth: '180px', minHeight: '20px'}}>
-				<TiArrowRightOutline className='icon-arrow'/>
+			{this.state.currentStage<=3&&<ButtonBottom onClick={this.nextStage} >
+				<GoChevronRight />
 					<span style={{margin: '0 5%'}}>Далее</span>
-				<TiArrowRightOutline />
-			</a>
+				<GoChevronRight />
+			</ButtonBottom>
 			}
-			{!this.state.resultsReady&&this.state.currentStage==4 && <a onClick={this.resultsPage} style={{padding: '0', minWidth: '200px', minHeight: '50px'}}>
-				<TiArrowRightOutline />
+			{!this.state.resultsReady&&this.state.currentStage==4 && <ButtonBottom onClick={this.resultsPage}>
+				<GoChevronRight />
 					<span style={{margin: '0 5%'}}>Узнать результат</span>
-				<TiArrowRightOutline />
-			</a>}
+				<GoChevronRight />
+			</ButtonBottom>}
 
 			{this.state.resultsReady&&<Results data={this.state.data} />}
 
