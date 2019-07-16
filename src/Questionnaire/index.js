@@ -2,51 +2,67 @@ import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import Results from '../Results';
 import questions from './questions';
+import logo from './logo.png';
 import './questions.css';
 import styled from 'styled-components';
 import { GoChevronRight } from "react-icons/go";
 
 const SubTitle = styled.p`
-	font-size: 1rem;
+	font-size: 11px; 
+	margin: 5px 0;
 `;
 
 const Wrap = styled.div`
 	display: flex;
-	flex-direction: column
+	flex-direction: column;
 	align-items: center;
-	padding: 1% 5%;
+	padding: 5px 15px;
+	font-size: 11px; 
 `;
 
 const ButtonResult = styled.button`
-	display: flex;
-	margin: 2%;
+	margin: 5px;
 	max-width: 10%;
-	font-size: 1rem; 
 	border-style: ridge;
 `;
 
 const TabHeadQuestion = styled.div`
-	margin: 2%;
-	width: 60%;
-	font-size: 1rem; 
+	display: flex;
 `;
 
 const TabHead = styled.div`
 	display: flex;
-	justify-content: center;
-	margin: 2%;
-	width: 20%;
-	font-size: 1rem; 
+	margin: 5px;
 `;
 
 const ButtonBottom = styled.a`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 3%;
+	padding: 5px;
 	cursor: pointer;
-	min-width: 200px;
-	height: 30px;
+	margin-top: 10px;
+`;
+
+const FlexRadio = styled.div`
+	display: flex;
+	padding: 5px;
+`;
+
+const FlexAll = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-items: flex-start;
+`;
+
+
+const SmallFlex = styled.div`
+	display: flex;
+	align-items: center;
+	height: 10px;
+	justify-content: flex-start;
+	cursor: pointer;
 `;
 
 class QuestionsObj extends React.Component {
@@ -81,73 +97,69 @@ class QuestionsObj extends React.Component {
 	    // let useTag = '<use xlink:href="arrow" />';
 
 	return (
-		<Wrap style={{padding: '1% 5%'}}>
-			<h1>
-				Logo GrebenukResulting
-			</h1>
+		<Wrap style={{padding: '5px 50px'}}>
+			<img src={logo} width="125" height="49" style={{margin: '5px'}}>
+			 </img>
 			<SubTitle>
 				127 построенных систем продаж за 6 лет в РФ
 			</SubTitle>
-			<h2 style={{margin: '0'}} style={{'marginBottom': '2%'}}>
+			
+			{!this.state.resultsReady&& <div>
+			<h2 style={{margin: '10px 0'}}>
 				Пройдите тест для владельца и узнайте, насколько эффективна ваша система продаж
 			</h2>	
-			
-			{!this.state.resultsReady&& <div> 	
-				
-				<div style={{display: 'flex', justifyContent: 'center' }}>
-						<TabHeadQuestion>
-							Вопросы
-						</TabHeadQuestion>
-						<TabHead>
-							Да	
-						</TabHead>
-						<TabHead>
-							Нет	
-						</TabHead>
-						<TabHead>
-							Возможно
-						</TabHead>
-				</div>
-		
-				<div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+				<div>
 				{
 					Object.entries(this.state.data.stages[this.state.currentStage].questions).map(([questionId, questionData]) => (
-						<div key={questionId} style={{display: 'flex', flexDirection: 'row'}}>
+						<FlexAll key={questionId}>
 
-							<TabHeadQuestion>{questionData.question}	
+							<TabHeadQuestion style={{textAlign: 'left'}}>{questionData.question}	
 							</TabHeadQuestion>
-							<TabHead>
-								<label style={{display: 'block', width: '100%', height: '100%'}}>
-									<input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1}  onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input>							
-								</label>
-							</TabHead>
-							<TabHead>
-								<label style={{display: 'block', width: '100%', height: '100%'}}>
-									<input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2}  onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input>							
-								</label>
-							</TabHead>
-							<TabHead>
-								<label style={{display: 'block', width: '100%', height: '100%'}}>
-									<input checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
-								</label>
-							</TabHead>
 
-						</div>
+							<FlexRadio>
+								<TabHead>
+									<label style={{display: 'block', width: '100%', height: '20%'}}>
+										<SmallFlex>
+											<p style={{margin: '0 5px'}}> Да</p>
+											<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1} onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input>							
+										</SmallFlex>
+									</label>
+								</TabHead>
+								<TabHead>
+									<label style={{display: 'block', width: '100%', height: '100%'}}>
+									<SmallFlex>
+										<p style={{margin: '0 5px'}}>Нет</p>
+										<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2}  onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input>							
+										</SmallFlex>
+									</label>
+								</TabHead>
+								<TabHead>
+									<label style={{display: 'block', width: '100%', height: '100%'}}>
+									<SmallFlex>
+										<p style={{margin: '0 5px'}}>Возможно</p>
+										<input style={{cursor: 'pointer'}}  checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
+										</SmallFlex>
+									</label>
+								</TabHead>
+							</FlexRadio>
+							
+						</FlexAll>
 					))
 				}
 				</div>
 			</div>
 			}
 			
-			{this.state.currentStage<=3&&<ButtonBottom onClick={this.nextStage} >
-				<GoChevronRight />
-					<span style={{margin: '0 5%'}}>Далее</span>
+			{this.state.currentStage<=3&&	
+				<ButtonBottom onClick={this.nextStage}>
+			<GoChevronRight />
+					<span style={{margin: '0 5px'}}>Далее</span>
 				<GoChevronRight />
 			</ButtonBottom>
 			}
 			{!this.state.resultsReady&&this.state.currentStage==4 && <ButtonBottom onClick={this.resultsPage}>
-				<GoChevronRight />
-					<span style={{margin: '0 5%'}}>Узнать результат</span>
+			<GoChevronRight />
+					<span style={{margin: '0 5px'}}>Узнать результат</span>
 				<GoChevronRight />
 			</ButtonBottom>}
 

@@ -13,20 +13,21 @@ const divWrap = styled.div`
 `;
 
 const ResultsHead = styled.h1`
-	font-size: 1.5rem;
+	font-size: 1rem;
 `;
 
 const ButtonLoad = styled.a`
+	font-size: 1rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 3%;
+	padding: 15px 5px;
 	cursor: pointer;
-	min-width: 200px;
-	height: 30px;
-	margin-top: 5%;
+	min-width: 80px;
+	max-width: 240px;
+	height: 10px;
+	margin-top: 20px;
 `;
-
 
 class Results extends React.Component {	
 
@@ -88,8 +89,15 @@ class Results extends React.Component {
 					</ResultsHead>
 					<RadarChart
 						captions={captions}
+						options={{captionProps: () => ({
+							className: 'caption',
+							textAnchor: 'middle',
+							fontSize: 8,
+							fontFamily: 'sans-serif'
+							}),
+						}}
 						data={dataResult}
-						size={450}
+						size={500}
 					/>
 				</header>
 				<ButtonLoad onClick={window.print}>
