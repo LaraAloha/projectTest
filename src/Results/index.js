@@ -12,6 +12,22 @@ const divWrap = styled.div`
 	width: 30%;
 `;
 
+const ResultsHead = styled.h1`
+	font-size: 1.5rem;
+`;
+
+const ButtonLoad = styled.a`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 3%;
+	cursor: pointer;
+	min-width: 200px;
+	height: 30px;
+	margin-top: 5%;
+`;
+
+
 class Results extends React.Component {	
 
 	render() {
@@ -65,20 +81,20 @@ class Results extends React.Component {
 
 		return (
 		<divWrap>
-			<div className="wrapper">
+			<div>
 				<header>
-					<h1 style={{color: 'black'}}>
+					<ResultsHead>
 						Результаты
-					</h1>
+					</ResultsHead>
 					<RadarChart
 						captions={captions}
 						data={dataResult}
 						size={450}
 					/>
 				</header>
-				<button onClick={window.print}>
+				<ButtonLoad onClick={window.print}>
 					Скачать результаты в PDF
-				</button>
+				</ButtonLoad>
 			</div>
 		</divWrap>
 		);

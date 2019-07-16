@@ -45,9 +45,8 @@ const ButtonBottom = styled.a`
 	align-items: center;
 	padding: 3%;
 	cursor: pointer;
-	minWidth: 200px;
-	minHeight: 20px;
-}}
+	min-width: 200px;
+	height: 30px;
 `;
 
 class QuestionsObj extends React.Component {
