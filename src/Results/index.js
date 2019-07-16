@@ -10,7 +10,7 @@ import './results.css';
 
 const divWrap = styled.div`
 	width: 30%;
-	
+
 `;
 
 /**
@@ -70,7 +70,7 @@ class Results extends React.Component {
 
 		return (
 		<divWrap>
-			<div className="wrapper" id="capture">
+			<div className="wrapper">
 				<header>
 					<p>
 						Результаты

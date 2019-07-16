@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const DivWrap = styled.div`
 	display: flex;	
-	flex-direction: row;
+	flex-direction: column;
 	font-size: 1rem;
 	padding: 10%;
 `;
@@ -76,8 +76,6 @@ class QuestionsObj extends React.Component {
 				}
 			</tbody>
 			</table>}
-			</DivWrap>
-
 			{this.state.currentStage<=3&& <ButtonResult onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}> 
 			Следующая группа вопросов 
 			</ButtonResult>}
@@ -85,7 +83,8 @@ class QuestionsObj extends React.Component {
 			Узнать результат 
 			</ButtonResult>}
 				{this.state.resultsReady&&<Results data={this.state.data} />}
-			</div>
+				</DivWrap>
+		</div>
 		);
 	}
 }
