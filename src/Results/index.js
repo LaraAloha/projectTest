@@ -4,6 +4,10 @@ import html2canvas from 'html2canvas';
 import RadarChart from 'react-svg-radar-chart';
 import 'react-svg-radar-chart/build/css/index.css'
 
+/**
+ * @todo  Результат в ПДФ некорректный -- исправить
+ */
+
 function Results({data}) {
 
 	function countResult(number) {

@@ -2,9 +2,6 @@ import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import Results from '../Results';
 import questions from './questions';
-/**
- * @todo  вынести в отдельную компоненту ответы
- */
 
 class QuestionsObj extends React.Component {
 	constructor(props) {
