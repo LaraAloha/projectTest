@@ -72,9 +72,9 @@ class Results extends React.Component {
 		<divWrap>
 			<div className="wrapper">
 				<header>
-					<p>
+					<h1 style={{color: 'black'}}>
 						Результаты
-					</p>
+					</h1>
 					<RadarChart
 						captions={captions}
 						data={dataResult}
