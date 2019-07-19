@@ -6,15 +6,19 @@
   "dependencies": {
     "@progress/kendo-drawing": "^1.5.12",
     "@progress/kendo-react-pdf": "^3.2.2",
+    "@trendmicro/react-modal": "^3.0.0",
     "html2canvas": "^1.0.0-rc.3",
     "jspdf-react": "^1.0.10",
     "react": "^16.8.6",
+    "react-awesome-modal": "^2.0.5",
+    "react-d3-radar": "^1.0.0-rc6",
     "react-dom": "^16.8.6",
     "react-dom-server": "0.0.5",
     "react-icons": "^3.7.0",
     "react-scripts": "3.0.1",
     "react-svg-radar-chart": "^1.2.0",
     "react-to-pdf": "0.0.8",
+    "reactjs-popup": "^1.4.1",
     "styled-components": "^4.3.2"
   },
   "scripts": {

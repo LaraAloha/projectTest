@@ -74,3 +74,16 @@ a:active {
 a:active .icon-arrow {
     fill: #FD6154;
 }
+
+.class1 {
+	background-color: #B8860B	
+}
+
+.class2 {
+	background-color: #FFFAFA
+}
+
+button {
+	font-size: 18px;
+	font-family: 'Roboto',Arial,sans-serif;	
+}

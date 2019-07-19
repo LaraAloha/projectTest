@@ -6,10 +6,12 @@ import logo from './logo.png';
 import './questions.css';
 import styled from 'styled-components';
 import { GoChevronRight } from "react-icons/go";
+import Modal from 'react-awesome-modal';
 
 const SubTitle = styled.p`
-	font-size: 11px; 
+	font-size: 24px;
 	margin: 5px 0;
+	text-align: center;
 `;
 
 const Wrap = styled.div`
@@ -18,8 +20,7 @@ const Wrap = styled.div`
 	justify-content: center;
 	flex-direction: column;
 	padding: 5px 15px;
-	font-size: 11px; 
-    font-family: 'Roboto',Arial,sans-serif;
+	font-family: 'Roboto',Arial,sans-serif;	
 `;
 
 const Columns = styled.div`
@@ -27,11 +28,21 @@ const Columns = styled.div`
 	-moz-column-count: 2;  
 	column-count: 2;  
 	padding: 20px 0;
-	column-gap: 10em;
-	width: 70%;
+	column-gap: 6em;
+	break-after: avoid;
+	width: 75%;
     column-rule: 1px solid #ccc;
     font-size: 18px;
-    line-height: 1.55;
+	line-height: 1.55;
+
+	@media (max-width: 1100px) {
+		column-rule: none;
+	}
+
+		@media (max-width: 850px) {
+			column-count: 1;
+			width: 85%;
+		}
 `;
 
 const ButtonResult = styled.button`
@@ -59,7 +70,7 @@ const ButtonBottom = styled.a`
 
 const FlexRadio = styled.div`
 	display: flex;
-	padding: 20px 0 40px 0;
+	padding: 10px 0 40px 0;
 `;
 
 const FlexAll = styled.div`
@@ -72,7 +83,26 @@ const FlexAll2 = styled.div`
 	flex-direction: column;
     justify-content: center;
     align-items: center;
+`;
 
+const FlexAll3 = styled.div`
+	display: flex;
+	flex-direction: row;
+	break-inside: avoid-column;
+	padding-right: 10px;
+`;
+
+
+const FlexAll4 = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding: 40px 45px;
+`;
+
+
+const FlexAll5 = styled.div`
+	display: flex;
+	flex-direction: column;
 `;
 
 const SmallFlex = styled.div`
@@ -82,14 +112,34 @@ const SmallFlex = styled.div`
 	cursor: pointer;
 `;
 
+const ColouredBox = styled.div`
+	min-width: 30px; 
+	height: 80px;
+	margin-right: 30px;
+`;
+
+const ColouredBox2 = styled.div`
+	min-width: 30px; 
+	height: 80px;
+	margin-right: 30px;
+`;
+
 class QuestionsObj extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			currentStage: 1, 
+			currentQuestion: 1, 
 			data: questions,
-		};		
-	}
+			visible : true
+	};		
+}
+
+closeModal = () => {
+	this.setState({
+		visible : false
+	});
+}		
 
 answerQuestion(questionId, answer) {
 	const newData = {...this.state.data};
@@ -110,83 +160,160 @@ resultsPage = () => {
 	this.setState({resultsReady: true});
 }
 
+allQuestionCounter = () => {
+	let Count = 0;
+	for (let i = 1; i <= Object.keys(questions.stages).length; i++) { 
+	Count+=Object.keys(questions.stages[i].questions).length;
+	}
+	return Count;
+}
+
+questionCounter = () => {
+	let Count = 0;
+	for (let i = 1; i <= this.state.currentStage; i++) { 
+	Count+=Object.keys(questions.stages[i].questions).length;
+	}
+	return Count;
+}
+
+questionCurrNumber = () => {
+	let Count = 0;
+		for (let j = 1; j <= this.state.currentQuestion; j++) { 
+			Count=Object.keys(questions.questions[j]);
+		}
+
+	return Count;
+	console.log(Count)
+}
+
+
 render() {
 
 return (
 	<Wrap>
 		<img src={logo} width="125" height="49" style={{margin: '5px'}}>
-			</img>
-		<SubTitle>
-			127 построенных систем продаж за 6 лет в РФ
-		</SubTitle>
-		
+		</img>		
 		{!this.state.resultsReady&&
 		<div>
-			<h2 style={{margin: '10px 0', textAlign: 'center'}}>
+			<SubTitle>
 				Пройдите тест для владельца и узнайте, насколько эффективна ваша система продаж
-			</h2>	
+			</SubTitle>	
 			
 			<FlexAll2>
 				<Columns>
 					<div>
-						{ Object.entries(this.state.data.stages[this.state.currentStage].questions).map(([questionId, questionData]) => (
-							<FlexAll>
-								<TabHeadQuestion>{questionData.question}	
-								</TabHeadQuestion>
+						{ Object.entries(this.state.data.stages[this.state.currentStage].questions).map(([questionId, questionData]) => (						
+							<FlexAll3> 
+							{/* <ColouredBox className={this.state.data.stages[this.state.currentStage].questions[questionId].answer == true ? backgroundColor:'#FFDEAD': backgroundColor: '#FFFAFA' }  /> */}
+								<ColouredBox className={this.state.data.stages[this.state.currentStage].questions[questionId].answer ? 'class1': 'class2' }  />
+								<FlexAll>
+									<TabHeadQuestion>{this.questionCurrNumber()}{questionData.question}	
+									</TabHeadQuestion>
 
-								<FlexRadio>
-									<TabHead>
-										
-										<label style={{display: 'block', width: '100%', height: '20%'}}>
-											<SmallFlex>
-												<p style={{margin: '0 5px'}}> Да</p>
-												<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1} onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input>							
-											</SmallFlex>
-										</label>
-									</TabHead>
-									<TabHead>
-										<label style={{display: 'block', width: '100%', height: '100%'}}>
-										<SmallFlex>
-											<p style={{margin: '0 5px'}}>Нет</p>
-											<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2}  onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input>							
-											</SmallFlex>
-										</label>
-									</TabHead>
-									<TabHead>
-										<label style={{display: 'block', width: '100%', height: '100%'}}>
-										<SmallFlex>
-											<p style={{margin: '0 5px'}}>Возможно</p>
-											<input style={{cursor: 'pointer'}}  checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
-											</SmallFlex>
-										</label>
-									</TabHead>
-								</FlexRadio>
-
-							</FlexAll>
-						)) }
+									<FlexRadio>
+										<TabHead>		
+											<label style={{display: 'block', width: '100%', height: '20%'}}>
+												<SmallFlex>
+													<p style={{margin: '0 5px'}}> Да</p>
+													<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1} onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input>							
+												</SmallFlex>
+											</label>
+										</TabHead>
+										<TabHead>
+											<label style={{display: 'block', width: '100%', height: '100%'}}>
+												<SmallFlex>
+													<p style={{margin: '0 5px'}}>Нет</p>
+													<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2} onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input>							
+												</SmallFlex>
+											</label>
+										</TabHead>
+										<TabHead>
+											<label style={{display: 'block', width: '100%', height: '100%'}}>
+												<SmallFlex>
+													<p style={{margin: '0 5px'}}>Возможно</p>
+													<input style={{cursor: 'pointer'}}  checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
+												</SmallFlex>
+											</label>
+										</TabHead>
+									</FlexRadio>
+								</FlexAll>
+							</FlexAll3>
+							)) }
 					</div>
 				</Columns>
 			</FlexAll2>
-		</div>
-}
-		
+			<p style={{textAlign: 'center'}}>
+				{this.questionCounter()} вопросов из {this.allQuestionCounter()}
+			</p>
+			</div>
+		}
+
 		{this.state.currentStage<=3&&	
 			<ButtonBottom onClick={this.nextStage}>
 			<GoChevronRight />
-				<span style={{margin: '0 5px'}}>Далее</span>
+				<button disabled={!this.nextButtonAvaliable()} style={{backgroundColor:'white', borderStyle: 'none', margin: '0 5px'}}>Далее</button>
 			<GoChevronRight />
 			</ButtonBottom>
 		}
 		{!this.state.resultsReady&&this.state.currentStage==4&&
 			<ButtonBottom onClick={this.resultsPage}>
 			<GoChevronRight />
-				<span style={{margin: '0 5px'}}>Узнать результат</span>
+				<button disabled={!this.nextButtonAvaliable()}  style={{borderStyle: 'none', margin: '0 5px'}}>Узнать результат</button>
 			<GoChevronRight />
 			</ButtonBottom>}
 
 		{this.state.resultsReady&&<Results data={this.state.data} />}
 
+                <Modal visible={this.state.visible} width='80%' height="90%" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+                    <FlexAll4>
+					<label>
+						<FlexAll5>
+						<p>Из какого вы города:</p>
+							<input style={{margin: '10px 0', minWidth: '30%', height: '30px'}} type="text" name="name" />
+						</FlexAll5>
+						</label>
+						<label>						
+						<FlexAll5>
+							<p>Как называется ваша компания:</p>
+							<input style={{margin: '10px 0', minWidth: '30%', height: '30px'}} type="text" name="name" />
+							</FlexAll5>
+							</label>
+
+						<p>Укажите вашу позицию в компании:</p>
+							<label>
+								<input style={{margin: '10px'}} type="radio" value="option1" checked={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} />
+								Владелец
+							</label>
+							<label>
+								<input style={{margin: '10px'}} type="radio" value="option1" checked={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} />
+								Владелец-директор
+							</label>
+							<label>
+								<input style={{margin: '10px'}} type="radio" value="option1" checked={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} />
+								Директор
+							</label>
+							<label>
+								<input style={{margin: '10px'}} type="radio" value="option1" checked={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} />
+								РОП
+							</label>
+							<label >
+								<input style={{margin: '10px'}} type="radio" value="option1" checked={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} />
+								Сотрудник
+							</label>
+						<label>
+							<input
+							style={{margin: '25px 15px 0'}}
+							type="checkbox"
+							checked={this.state.isGoing}
+							onChange={this.handleInputChange} />
+							<span>Я подтверждаю, что путем заполнения теста предоставляю в соответствии с Законом «О защите персональных данных» право бессрочно получать, обрабатывать, регистрировать, накапливать, хранить, изменять, обновлять, использовать и распространять (передавать) информацию, которая в соответствии с требованиями законодательства составляет персональные данные; вносить эту информацию в Базу персональных данных.</span>
+						</label>
+						<button style={{marginTop: '25px'}}onClick={() => this.closeModal()}>Перейти к тесту</button>
+						{/* disabled={!this.nextButtonAvaliable()} */}
+                    </FlexAll4>
+                </Modal>
 	</Wrap>
+
 	);
 }
 }
