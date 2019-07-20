@@ -76,7 +76,7 @@ a:active .icon-arrow {
 }
 
 .class1 {
-	background-color: #B8860B	
+	background-color: #FFD700		
 }
 
 .class2 {
@@ -86,4 +86,8 @@ a:active .icon-arrow {
 button {
 	font-size: 18px;
 	font-family: 'Roboto',Arial,sans-serif;	
+}
+
+text {
+	font-size: 8px;
 }
