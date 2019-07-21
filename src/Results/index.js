@@ -31,9 +31,9 @@ const ButtonBottom = styled.button`
 	align-items: center;
 	padding: 10px 25px;
 	cursor: pointer;
-	margin-top: 10px;
+	margin: 10px 0 25px 0;
 	border-radius: 10px;
-	background-color: #FFA500;
+	background-color: red;
 	border: 2px solid;
 `;
 
@@ -156,7 +156,7 @@ class Results extends React.Component {
 					<Third style={{border:'2px', padding: '7px'}}>
 						<input placeholder="Имя" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
 						<input placeholder="Телефон" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
-						<ButtonBottom style={{marginTop:'20px'}}>Получить билет</ButtonBottom>
+						<ButtonBottom style={{margin:'20px 20px 0 20px'}}>Получить билет</ButtonBottom>
 					</Third>
 
 			</Second>

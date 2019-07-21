@@ -40,6 +40,7 @@ const Columns = styled.div`
 	}
 
 		@media (max-width: 850px) {
+			column-rule: none;
 			column-count: 1;
 			width: 85%;
 		}
@@ -59,9 +60,9 @@ const ButtonBottom = styled.button`
 	align-items: center;
 	padding: 10px 25px;
 	cursor: pointer;
-	margin-top: 10px;
+	margin: 10px 0 25px 0;
 	border-radius: 10px;
-	background-color: #FFA500;
+	background-color: red;
     border: 2px solid;
 }`;
 
@@ -91,15 +92,16 @@ const FlexAll3 = styled.div`
 
 const FlexAll4 = styled.div`
 	display: flex;
+	font-size: 16px;
 	flex-direction: column;
-	padding: 40px 45px;
+	padding: 60px 85px;
 		@media (max-width: 850px) {
-			font-size: 16px;
-			padding: 30px 35px;
+			font-size: 14px;
+			padding: 40px 55px;
 		}		
 			@media (max-width: 767px) {
 				font-size: 12px;
-				padding: 20px 25px;
+				padding: 20px 35px;
 			}
 `;
 
@@ -202,6 +204,7 @@ nextButtonAvaliable() {
 
 nextStage = () => {
 	this.setState({currentStage: this.state.currentStage+1});
+	window.scrollTo(0, 0);
 }
 
 resultsPage = () => { 
@@ -280,7 +283,7 @@ return (
 											<label style={{display: 'block', width: '100%', height: '100%'}}>
 												<SmallFlex>
 													<p style={{margin: '0 5px'}}>Возможно</p>
-													<input style={{cursor: 'pointer'}}  checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
+													<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
 												</SmallFlex>
 											</label>
 										</TabHead>
@@ -300,9 +303,9 @@ return (
 		{this.state.currentStage<=3&&	
 			<label> 
 				<ButtonBottom onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}>
-					<GoChevronRight style={{margin: '5px', color: 'black', width: '10px'}}/>
+					{/* <GoChevronRight style={{margin: '5px', color: 'black', width: '10px'}}/> */}
 						Далее
-					<GoChevronRight style={{margin: '5px'}}/>
+					{/* <GoChevronRight style={{margin: '5px'}}/> */}
 				</ButtonBottom>		
 
 			</label>
@@ -312,9 +315,9 @@ return (
 			
 		<label> 
 			<ButtonBottom onClick={this.resultsPage} disabled={!this.nextButtonAvaliable()}>
-				<GoChevronRight />
+				{/* <GoChevronRight /> */}
 						Узнать результат
-				<GoChevronRight style={{margin: '5px'}}/>
+				{/* <GoChevronRight style={{margin: '5px'}}/> */}
 			</ButtonBottom>
 		</label>
 		}
@@ -327,17 +330,17 @@ return (
 			<FlexAll4>
 			<label>
 				<FlexAll5>
-				<p>Из какого вы города:</p>
-					<input style={{borderRadius: '10px',margin: '1% 0', minWidth: '30%', height: '30px'}} onChange={this.popupTextfields} type="text" name="city" value={this.state.city}/>
+				<p>1. Из какого вы города:</p>
+					<input style={{borderRadius: '10px',margin: '1% 0', maxWidth: '40%', height: '40px'}} onChange={this.popupTextfields} type="text" name="city" value={this.state.city}/>
 				</FlexAll5>
 				</label>
 				<label>						
 				<FlexAll5>
-					<p>Как называется ваша компания:</p>
-					<input style={{margin: '1% 0', borderRadius: '10px', minWidth: '30%', height: '30px'}} onChange={this.popupTextfields} type="text" name="company" value={this.state.company}/>
+					<p>2. Как называется ваша компания:</p>
+					<input style={{margin: '1% 0', borderRadius: '10px', maxWidth: '40%', height: '40px'}} onChange={this.popupTextfields} type="text" name="company" value={this.state.company}/>
 					</FlexAll5>
 					</label>
-				<p>Укажите вашу позицию в компании:</p>
+				<p>3. Укажите вашу позицию в компании:</p>
 					<label>
 						<input style={{margin: '1%'}} type="radio" value="owner" name="name1" checked={this.state.position=='owner'} onChange={this.popupCheckboxes}/>
 						Владелец
@@ -367,8 +370,11 @@ return (
 						/>
 						<span>Я подтверждаю, что путем заполнения теста предоставляю в соответствии с Законом «О защите персональных данных» право бессрочно получать, обрабатывать, регистрировать, накапливать, хранить, изменять, обновлять, использовать и распространять (передавать) информацию, которая в соответствии с требованиями законодательства составляет персональные данные; вносить эту информацию в Базу персональных данных.</span>
 					</label>
+			<FlexAll2>
+
 				{this.state.showError&&<Warn>Пожалуйста, заполните все обязательные поля</Warn>}
-				<ButtonBottom style={{width: 'auto', margin:'15px 10px'}} onClick={() => this.trySubmitModal()}>Перейти к тесту</ButtonBottom>
+				<ButtonBottom style={{width: '250px'}} onClick={() => this.trySubmitModal()}>Перейти к тесту</ButtonBottom>
+			</FlexAll2>
 			</FlexAll4>
 		</Modal>
 	</Wrap>

@@ -9,6 +9,7 @@
     "@trendmicro/react-modal": "^3.0.0",
     "html2canvas": "^1.0.0-rc.3",
     "jspdf-react": "^1.0.10",
+    "pdfmake": "^0.1.57",
     "react": "^16.8.6",
     "react-awesome-modal": "^2.0.5",
     "react-d3-radar": "^1.0.0-rc6",
