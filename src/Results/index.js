@@ -10,28 +10,31 @@ import Radar from 'react-d3-radar';
 import styled from 'styled-components';
 import './results.css';
 
-const divWrap = styled.div`
+const DivWrap = styled.div`
 	display: flex;
 	flex-direction: row;
 	font-family: 'Roboto',Arial,sans-serif;
     font-size: 18px;
-`;
+
+		@media (max-width: 1000px) {
+			flex-direction: column;
+		}
+	`;
 
 const ResultsHead = styled.h1`
 	font-size: 18px;
 `;
 
-const ButtonLoad = styled.a`
+const ButtonBottom = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	text-align: center;
-	padding: 15px 5px;
+	padding: 10px 25px;
 	cursor: pointer;
-	min-width: 80px;
-	max-width: 240px;
-	height: 10px;
-	margin-top: 20px;
+	margin-top: 10px;
+	border-radius: 10px;
+	background-color: #FFA500;
+	border: 2px solid;
 `;
 
 const First = styled.div`
@@ -40,7 +43,7 @@ const First = styled.div`
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	padding: 15px 5px;
+	padding: 15px 25px;
 `;
 
 const Second = styled.div`
@@ -49,7 +52,19 @@ const Second = styled.div`
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	padding: 15px 5px;
+	padding: 15px 25px;
+`;
+
+const Third = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border: 2px solid;
+`;
+
+
+const Text = styled.div`
+	text-align: left;
 `;
 
 class Results extends React.Component {	
@@ -104,7 +119,7 @@ class Results extends React.Component {
 		}
 
 		return (
-		<divWrap>
+		<DivWrap>
 			<First>
 				<ResultsHead style={{textAlign: 'center'}}>
 					Ваши результаты
@@ -115,20 +130,37 @@ class Results extends React.Component {
 				<RadarChart
 						captions={captions}
 						data={dataResult}
-						size={450}
+						size={500}
 					/>
 
-				<ButtonLoad onClick={window.print}>
+				<ButtonBottom style={{marginTop:'20px'}} onClick={window.print}>
 					Скачать результаты в PDF
-				</ButtonLoad>
+				</ButtonBottom>
 			</First>
 
 
 
 			<Second>
-<p> Love my boiii </p>
+				<p> 1 августа 2019 (Москва) <br></br>конференция от Grebenuk Resulting </p>
+				<div style={{maxWidth:'65%', border:'solid', padding: '5px'}}> Заполни форму ниже и мы вышлем вам бесплатный билет на конференцию </div>
+				<Text>
+				<p> Спикеры – топ-директора по продажам: </p>
+				<ul>
+					<li>BlackStar</li>
+					<li>AmoCRM</li>
+					<li>1C Bitrix</li>
+					<li>Marsh</li>
+					<li>Михаил Гребенюк (создатель этого теста)</li>
+				</ul>
+				</Text>
+					<Third style={{border:'2px', padding: '7px'}}>
+						<input placeholder="Имя" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
+						<input placeholder="Телефон" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
+						<ButtonBottom style={{marginTop:'20px'}}>Получить билет</ButtonBottom>
+					</Third>
+
 			</Second>
-		</divWrap>
+		</DivWrap>
 		);
 	}
 }

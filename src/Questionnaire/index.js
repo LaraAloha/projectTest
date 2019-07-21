@@ -45,12 +45,6 @@ const Columns = styled.div`
 		}
 `;
 
-const ButtonResult = styled.button`
-	margin: 5px;
-	max-width: 10%;
-	border-style: ridge;
-`;
-
 const TabHeadQuestion = styled.div`
 `;
 
@@ -59,15 +53,17 @@ const TabHead = styled.div`
 	margin: 5px;
 `;
 
-const ButtonBottom = styled.a`
+const ButtonBottom = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 5px 15px;
+	padding: 10px 25px;
 	cursor: pointer;
 	margin-top: 10px;
 	border-radius: 10px;
-	`;
+	background-color: #FFA500;
+    border: 2px solid;
+}`;
 
 const FlexRadio = styled.div`
 	display: flex;
@@ -136,7 +132,13 @@ const BoxText = styled.p`
 `;
 
 const Warn = styled.div`
-	height: 30px;
+	text-align:center;
+	padding: 5px 15px;
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 10px;
+	background-color: #FFE4E1;
+	heigth: 30px;
 `;
 
 class QuestionsObj extends React.Component {
@@ -150,7 +152,8 @@ class QuestionsObj extends React.Component {
 			city: '',
 			company: '',
 			position: '',
-			acceptance: false
+			acceptance: false,
+			showError: false
 	};		
 }
 
@@ -158,7 +161,15 @@ closeModal = () => {
 	this.setState({
 		visible: false
 	});
-}		
+}	
+
+trySubmitModal = () => {
+	if (this.state.city&&this.state.company&&this.state.acceptance&&this.state.position) {
+		this.closeModal();
+	} else {
+		this.error();
+	}
+}
 
 answerQuestion(questionId, answer) {
 	const newData = {...this.state.data};
@@ -183,10 +194,6 @@ popupTextfields = (event) => {
 	this.setState({
 		[event.target.name]: event.target.value
 	})
-}
-
-testButton() {
-	return this.state.city&&this.state.company&&this.state.acceptance&&this.state.position;
 }
 
 nextButtonAvaliable() {
@@ -221,10 +228,10 @@ questionCurrNumber(questionId, questionCounter){
 	return parseInt(questionId)+questionCounter-12;
 }
 
-wrongChecked(){
-	if (this.state.city&&this.state.company&&this.state.acceptance&&this.state.position){
-		return 
-	}
+error(){
+	this.setState({
+		showError: true
+	})
 }
 
 render() {
@@ -292,24 +299,21 @@ return (
 
 		{this.state.currentStage<=3&&	
 			<label> 
-				<ButtonBottom onClick={this.nextStage}>
-				<GoChevronRight style={{margin: '5px', color: 'black'}}/>
-					<button disabled={!this.nextButtonAvaliable()} style={{borderStyle:'none', backgroundColor: 'none', margin: '10px'  }}>
+				<ButtonBottom onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}>
+					<GoChevronRight style={{margin: '5px', color: 'black', width: '10px'}}/>
 						Далее
-					</button>	
 					<GoChevronRight style={{margin: '5px'}}/>
-				</ButtonBottom>
+				</ButtonBottom>		
+
 			</label>
 		}
 
 		{!this.state.resultsReady&&this.state.currentStage==4&&
 			
 		<label> 
-			<ButtonBottom onClick={this.resultsPage}>
+			<ButtonBottom onClick={this.resultsPage} disabled={!this.nextButtonAvaliable()}>
 				<GoChevronRight />
-					<button disabled={!this.nextButtonAvaliable()} style={{borderStyle: 'none', backgroundColor: 'none', margin: '10px'}}>
 						Узнать результат
-					</button>	
 				<GoChevronRight style={{margin: '5px'}}/>
 			</ButtonBottom>
 		</label>
@@ -317,54 +321,54 @@ return (
 
 		{this.state.resultsReady&&<Results data={this.state.data} company={this.state.company}/>}
 
-		<Modal visible={this.state.visible} width='80%' effect="fadeInUp" onClickAway={() => 
-			
-			this.closeModal()}>
+		<Modal visible={this.state.visible} width='80%' effect="fadeInUp" 
+		// onClickAway={() => this.closeModal()}
+		>
 			<FlexAll4>
 			<label>
 				<FlexAll5>
 				<p>Из какого вы города:</p>
-					<input style={{margin: '2% 0', minWidth: '30%', height: '30px'}} onChange={this.popupTextfields} type="text" name="city" value={this.state.city}/>
+					<input style={{borderRadius: '10px',margin: '1% 0', minWidth: '30%', height: '30px'}} onChange={this.popupTextfields} type="text" name="city" value={this.state.city}/>
 				</FlexAll5>
 				</label>
 				<label>						
 				<FlexAll5>
 					<p>Как называется ваша компания:</p>
-					<input style={{margin: '2% 0', minWidth: '30%', height: '30px'}} onChange={this.popupTextfields} type="text" name="company" value={this.state.company}/>
+					<input style={{margin: '1% 0', borderRadius: '10px', minWidth: '30%', height: '30px'}} onChange={this.popupTextfields} type="text" name="company" value={this.state.company}/>
 					</FlexAll5>
 					</label>
 				<p>Укажите вашу позицию в компании:</p>
 					<label>
-						<input style={{margin: '2%'}} type="radio" value="owner" name="name1" checked={this.state.position=='owner'} onChange={this.popupCheckboxes}/>
+						<input style={{margin: '1%'}} type="radio" value="owner" name="name1" checked={this.state.position=='owner'} onChange={this.popupCheckboxes}/>
 						Владелец
 					</label>
 					<label>
-						<input style={{margin: '2%'}} type="radio" value="owner_dir" name="name1" checked={this.state.position=='owner_dir'} onChange={this.popupCheckboxes}/>
+						<input style={{margin: '1%'}} type="radio" value="owner_dir" name="name1" checked={this.state.position=='owner_dir'} onChange={this.popupCheckboxes}/>
 						Владелец-директор
 					</label>
 					<label>
-						<input style={{margin: '2%'}} type="radio" value="dir"name="name1" checked={this.state.position=='dir'} onChange={this.popupCheckboxes}/>
+						<input style={{margin: '1%'}} type="radio" value="dir"name="name1" checked={this.state.position=='dir'} onChange={this.popupCheckboxes}/>
 						Директор
 					</label>
 					<label>
-						<input style={{margin: '2%'}} type="radio" value="rop"name="name1" checked={this.state.position=='rop'} onChange={this.popupCheckboxes}/>
+						<input style={{margin: '1%'}} type="radio" value="rop"name="name1" checked={this.state.position=='rop'} onChange={this.popupCheckboxes}/>
 						РОП
 					</label>
 					<label >
-						<input style={{margin: '2%'}} type="radio" value="empl" name="name1" checked={this.state.position=='empl'} onChange={this.popupCheckboxes}/>
+						<input style={{margin: '1%'}} type="radio" value="empl" name="name1" checked={this.state.position=='empl'} onChange={this.popupCheckboxes}/>
 						Сотрудник
 					</label>
 					<label>
 						<input 
-						style={{margin: '25px 15px 0'}}
+						style={{margin: '20px 10px 0'}}
 						type="checkbox"
 						checked={this.state.acceptance}
 						onChange={this.popupAccept}
 						/>
 						<span>Я подтверждаю, что путем заполнения теста предоставляю в соответствии с Законом «О защите персональных данных» право бессрочно получать, обрабатывать, регистрировать, накапливать, хранить, изменять, обновлять, использовать и распространять (передавать) информацию, которая в соответствии с требованиями законодательства составляет персональные данные; вносить эту информацию в Базу персональных данных.</span>
 					</label>
-				<Warn>Пожалуйста, заполните все обязательные поля</Warn>
-				<button disabled={!this.testButton()} style={{borderRadius: '10px', height: '40px', marginTop: '25px'}} onClick={() => this.closeModal()}>Перейти к тесту</button>
+				{this.state.showError&&<Warn>Пожалуйста, заполните все обязательные поля</Warn>}
+				<ButtonBottom style={{width: 'auto', margin:'15px 10px'}} onClick={() => this.trySubmitModal()}>Перейти к тесту</ButtonBottom>
 			</FlexAll4>
 		</Modal>
 	</Wrap>
