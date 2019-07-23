@@ -5,142 +5,16 @@ import questions from './questions';
 import logo from './logo.png';
 import './questions.css';
 import styled from 'styled-components';
-import { GoChevronRight } from "react-icons/go";
 import Modal from 'react-awesome-modal';
-
-const SubTitle = styled.p`
-	font-size: 24px;
-	margin: 5px 0;
-	text-align: center;
-`;
-
-const Wrap = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 5px 15px;
-	font-family: 'Roboto',Arial,sans-serif;	
-`;
-
-const Columns = styled.div`
-	-webkit-column-count: 2;  
-	-moz-column-count: 2;  
-	column-count: 2;  
-	padding: 20px 0;
-	column-gap: 6em;
-	break-after: avoid;
-	width: 75%;
-    column-rule: 1px solid #ccc;
-    font-size: 18px;
-	line-height: 1.55;
-
-	@media (max-width: 1100px) {
-		column-rule: none;
-	}
-
-		@media (max-width: 850px) {
-			column-rule: none;
-			column-count: 1;
-			width: 85%;
-		}
-`;
-
-const TabHeadQuestion = styled.div`
-`;
-
-const TabHead = styled.div`
-	display: flex;
-	margin: 5px;
-`;
-
-const ButtonBottom = styled.button`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 10px 25px;
-	cursor: pointer;
-	margin: 10px 0 25px 0;
-	border-radius: 10px;
-	background-color: red;
-    border: 2px solid;
-}`;
-
-const FlexRadio = styled.div`
-	display: flex;
-	padding: 10px 0 40px 0;
-`;
-
-const FlexAll = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
-
-const FlexAll2 = styled.div`
-	display: flex;
-	flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`;
-
-const FlexAll3 = styled.div`
-	display: flex;
-	flex-direction: row;
-	break-inside: avoid-column;
-	padding-right: 10px;
-`;
-
-const FlexAll4 = styled.div`
-	display: flex;
-	font-size: 16px;
-	flex-direction: column;
-	padding: 60px 85px;
-		@media (max-width: 850px) {
-			font-size: 14px;
-			padding: 40px 55px;
-		}		
-			@media (max-width: 767px) {
-				font-size: 12px;
-				padding: 20px 35px;
-			}
-`;
-
-const FlexAll5 = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
-
-const SmallFlex = styled.div`
-	display: flex;
-	align-items: center;
-	height: 10px;
-	cursor: pointer;
-`;
 
 const ColouredBox = styled.div`
 	min-width: 50px; 
 	height: 80px;
 	margin-right: 30px;
-`;
-
-const ColouredBox2 = styled.div`
-	min-width: 30px; 
-	height: 80px;
-	margin-right: 30px;
-`;
-
-const BoxText = styled.p`
-	text-align: center;
-`;
-
-const Warn = styled.div`
-	text-align:center;
-	padding: 5px 15px;
-	cursor: pointer;
-	margin-top: 10px;
-	border-radius: 10px;
-	background-color: #FFE4E1;
-	heigth: 30px;
+	@media (max-width: 600px) {
+		margin-right: 10px;
+		min-width: 30px; 
+	}
 `;
 
 class QuestionsObj extends React.Component {
@@ -209,6 +83,7 @@ nextStage = () => {
 
 resultsPage = () => { 
 	this.setState({resultsReady: true});
+	window.scrollTo(0, 0);
 }
 
 allQuestionCounter = () => {
@@ -239,61 +114,62 @@ error(){
 
 render() {
 return (
-	<Wrap>
+	<div className='wrapQ'>
 		<img src={logo} width="125" height="49" style={{margin: '5px'}}>
 		</img>		
 		{!this.state.resultsReady&&
 		<div>
-			<SubTitle>
+			<p className='subTitle'>
 				Пройдите тест для владельца и узнайте, насколько эффективна ваша система продаж
-			</SubTitle>	
+			</p>	
 			
-			<FlexAll2>
-				<Columns>
+			<div className='flexAll2'>
+				<div className='columns'>
 					<div>
 						{ Object.entries(this.state.data.stages[this.state.currentStage].questions).map(([questionId, questionData]) => (						
-							<FlexAll3> 
+							<div className='flexAll3'> 
 								<ColouredBox className={this.state.data.stages[this.state.currentStage].questions[questionId].answer ? 'class1': 'class2' }>
-									<BoxText>				
+									<p className='boxText'>				
 										{this.questionCurrNumber(questionId, this.questionCounter())}
-									</BoxText>
+									</p>
 								</ColouredBox>
-								<FlexAll>
-									<TabHeadQuestion>
+								<div className='flexAll'>
+									<div>
 									{questionData.question}	
-									</TabHeadQuestion>
-									<FlexRadio>
-										<TabHead>		
-											<label style={{display: 'block', width: '100%', height: '20%'}}>
-												<SmallFlex>
+									</div>
+									<div className='flexRadio'>
+										<div className='tabHead'>		
+											<label className='inputBox'>
+												<div className='smallFlex'>
 													<p style={{margin: '0 5px'}}> Да</p>
 													<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 1} onChange={()=>this.answerQuestion(questionId, 1)} name={"radio"+questionId} type="radio"></input>							
-												</SmallFlex>
+												</div>
 											</label>
-										</TabHead>
-										<TabHead>
-											<label style={{display: 'block', width: '100%', height: '100%'}}>
-												<SmallFlex>
+										</div>
+										<div className='tabHead'>		
+											<label className='inputBox'>
+												<div className='smallFlex'>
 													<p style={{margin: '0 5px'}}>Нет</p>
 													<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 2} onChange={()=>this.answerQuestion(questionId, 2)} name={"radio"+questionId} type="radio"></input>							
-												</SmallFlex>
+												</div>
 											</label>
-										</TabHead>
-										<TabHead>
-											<label style={{display: 'block', width: '100%', height: '100%'}}>
-												<SmallFlex>
+										</div>
+										<div className='tabHead'>		
+											<label className='inputBox'>
+												<div className='smallFlex'>
 													<p style={{margin: '0 5px'}}>Возможно</p>
 													<input style={{cursor: 'pointer'}} checked={this.state.data.stages[this.state.currentStage].questions[questionId].answer == 3}  onChange={()=>this.answerQuestion(questionId, 3)} name={"radio"+questionId} type="radio"></input>							
-												</SmallFlex>
+												</div>
 											</label>
-										</TabHead>
-									</FlexRadio>
-								</FlexAll>
-							</FlexAll3>
+										</div>
+									</div>
+								</div>
+							</div>
 							)) }
 					</div>
-				</Columns>
-			</FlexAll2>
+				</div>
+
+			</div>
 			<p style={{textAlign: 'center'}}>
 				{this.questionCounter()} вопросов из {this.allQuestionCounter()}
 			</p>
@@ -302,11 +178,9 @@ return (
 
 		{this.state.currentStage<=3&&	
 			<label> 
-				<ButtonBottom onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}>
-					{/* <GoChevronRight style={{margin: '5px', color: 'black', width: '10px'}}/> */}
+				<button className='buttonBottom'  onClick={this.nextStage} disabled={!this.nextButtonAvaliable()}>
 						Далее
-					{/* <GoChevronRight style={{margin: '5px'}}/> */}
-				</ButtonBottom>		
+				</button>		
 
 			</label>
 		}
@@ -314,11 +188,9 @@ return (
 		{!this.state.resultsReady&&this.state.currentStage==4&&
 			
 		<label> 
-			<ButtonBottom onClick={this.resultsPage} disabled={!this.nextButtonAvaliable()}>
-				{/* <GoChevronRight /> */}
+			<button className='buttonBottom' onClick={this.resultsPage} disabled={!this.nextButtonAvaliable()}>
 						Узнать результат
-				{/* <GoChevronRight style={{margin: '5px'}}/> */}
-			</ButtonBottom>
+			</button>
 		</label>
 		}
 
@@ -327,57 +199,56 @@ return (
 		<Modal visible={this.state.visible} width='80%' effect="fadeInUp" 
 		// onClickAway={() => this.closeModal()}
 		>
-			<FlexAll4>
+			<div className='flexAll4'>
 			<label>
-				<FlexAll5>
-				<p>1. Из какого вы города:</p>
-					<input style={{borderRadius: '10px',margin: '1% 0', maxWidth: '40%', height: '40px'}} onChange={this.popupTextfields} type="text" name="city" value={this.state.city}/>
-				</FlexAll5>
+					<div className='flexAll5'>
+						<p>1. Из какого вы города:</p>
+						<input className='inputStyle' onChange={this.popupTextfields} type="text" name="city" value={this.state.city}/>
+					</div>
 				</label>
 				<label>						
-				<FlexAll5>
-					<p>2. Как называется ваша компания:</p>
-					<input style={{margin: '1% 0', borderRadius: '10px', maxWidth: '40%', height: '40px'}} onChange={this.popupTextfields} type="text" name="company" value={this.state.company}/>
-					</FlexAll5>
-					</label>
-				<p>3. Укажите вашу позицию в компании:</p>
-					<label>
-						<input style={{margin: '1%'}} type="radio" value="owner" name="name1" checked={this.state.position=='owner'} onChange={this.popupCheckboxes}/>
+					<div className='flexAll5'>
+						<p>2. Как называется ваша компания:</p>
+						<input className='inputStyle' onChange={this.popupTextfields} type="text" name="company" value={this.state.company}/>
+					</div>
+				</label>
+					<p>3. Укажите вашу позицию в компании:</p>
+				<label>
+					<input className='inputMargin' type="radio" value="owner" name="name1" checked={this.state.position=='owner'} onChange={this.popupCheckboxes}/>
 						Владелец
-					</label>
-					<label>
-						<input style={{margin: '1%'}} type="radio" value="owner_dir" name="name1" checked={this.state.position=='owner_dir'} onChange={this.popupCheckboxes}/>
+				</label>
+				<label>
+					<input className='inputMargin' type="radio" value="owner_dir" name="name1" checked={this.state.position=='owner_dir'} onChange={this.popupCheckboxes}/>
 						Владелец-директор
-					</label>
-					<label>
-						<input style={{margin: '1%'}} type="radio" value="dir"name="name1" checked={this.state.position=='dir'} onChange={this.popupCheckboxes}/>
+				</label>
+				<label>
+					<input className='inputMargin' type="radio" value="dir"name="name1" checked={this.state.position=='dir'} onChange={this.popupCheckboxes}/>
 						Директор
-					</label>
-					<label>
-						<input style={{margin: '1%'}} type="radio" value="rop"name="name1" checked={this.state.position=='rop'} onChange={this.popupCheckboxes}/>
+				</label>
+				<label>
+					<input className='inputMargin' type="radio" value="rop"name="name1" checked={this.state.position=='rop'} onChange={this.popupCheckboxes}/>
 						РОП
-					</label>
-					<label >
-						<input style={{margin: '1%'}} type="radio" value="empl" name="name1" checked={this.state.position=='empl'} onChange={this.popupCheckboxes}/>
+				</label>
+				<label >
+					<input className='inputMargin' type="radio" value="empl" name="name1" checked={this.state.position=='empl'} onChange={this.popupCheckboxes}/>
 						Сотрудник
-					</label>
-					<label>
-						<input 
-						style={{margin: '20px 10px 0'}}
-						type="checkbox"
-						checked={this.state.acceptance}
-						onChange={this.popupAccept}
-						/>
-						<span>Я подтверждаю, что путем заполнения теста предоставляю в соответствии с Законом «О защите персональных данных» право бессрочно получать, обрабатывать, регистрировать, накапливать, хранить, изменять, обновлять, использовать и распространять (передавать) информацию, которая в соответствии с требованиями законодательства составляет персональные данные; вносить эту информацию в Базу персональных данных.</span>
-					</label>
-			<FlexAll2>
-
-				{this.state.showError&&<Warn>Пожалуйста, заполните все обязательные поля</Warn>}
-				<ButtonBottom style={{width: '250px'}} onClick={() => this.trySubmitModal()}>Перейти к тесту</ButtonBottom>
-			</FlexAll2>
-			</FlexAll4>
+				</label>
+				<label>
+					<input 
+					style={{marginTop: '20px'}}
+					type="checkbox"
+					checked={this.state.acceptance}
+					onChange={this.popupAccept}
+					/>
+					<span className='textWarn'>Я подтверждаю, что путем заполнения теста предоставляю в соответствии с Законом «О защите персональных данных» право бессрочно получать, обрабатывать, регистрировать, накапливать, хранить, изменять, обновлять, использовать и распространять (передавать) информацию, которая в соответствии с требованиями законодательства составляет персональные данные; вносить эту информацию в Базу персональных данных.</span>
+				</label>
+			<div className='flexAll2'>
+				{this.state.showError&&<div className='warn'>Пожалуйста, заполните все обязательные поля</div>}
+				<button className='buttonBottom' style={{width: '230px'}} onClick={() => this.trySubmitModal()}>Перейти к тесту</button>
+			</div>
+			</div>
 		</Modal>
-	</Wrap>
+	</div>
 
 	);
 }

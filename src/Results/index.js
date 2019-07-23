@@ -10,102 +10,10 @@ import Radar from 'react-d3-radar';
 import styled from 'styled-components';
 import './results.css';
 
-const DivWrap = styled.div`
-	display: flex;
-	flex-direction: row;
-	font-family: 'Roboto',Arial,sans-serif;
-    font-size: 18px;
-
-		@media (max-width: 1000px) {
-			flex-direction: column;
-		}
-	`;
-
-const ResultsHead = styled.h1`
-	font-size: 18px;
-`;
-
-const ButtonBottom = styled.button`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 10px 25px;
-	cursor: pointer;
-	margin: 10px 0 25px 0;
-	border-radius: 10px;
-	background-color: red;
-	border: 2px solid;
-`;
-
-const First = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	padding: 15px 25px;
-`;
-
-const Second = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	padding: 15px 25px;
-`;
-
-const Third = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	border: 2px solid;
-`;
-
-
-const Text = styled.div`
-	text-align: left;
-`;
-
 class Results extends React.Component {	
 
 	render() {
 		const data = this.props.data;	
-		const dataResult = [
-			{
-			  data: {
-				sales: countResult(1),
-				planning: countResult(2),
-				voronka: countResult(3),
-				offer: countResult(4),
-				hire: countResult(5),
-				teaching: countResult(6),
-				motivation: countResult(7),
-				leading: countResult(8),
-				scripts: countResult(9),
-				crm: countResult(10),
-				commercial: countResult(11),
-				clients: countResult(12),
-			  },
-			  meta: { color: 'red' }
-			},
-		  ];
-	   
-	  const captions = {
-			sales: 'Модель продаж',
-			planning: 'Планирование',
-			voronka: 'Воронка',
-			offer: 'Оффер',
-			hire: 'Найм',
-			teaching: 'Обучение и адаптация',
-			motivation: 'Мотивация',
-			leading: 'Управление',
-			scripts: 'Скрипты',
-			crm: 'CRM',
-			commercial: 'Коммерческое предложение',
-			clients: '«Подогрев» клиентов',
-		  };
-	
 	
 		function countResult(number) {
 			let result = 0;
@@ -115,52 +23,112 @@ class Results extends React.Component {
 					   result++;
 				 }
 			}
-			return result/4;
+			return result*2;
 		}
 
 		return (
-		<DivWrap>
-			<First>
-				<ResultsHead style={{textAlign: 'center'}}>
+		<div className='wrap'>
+			<div className='first'>
+				<h1 className='resultsHead'>
 					Ваши результаты
-				</ResultsHead>
-				<ResultsHead style={{textAlign: 'center'}}>
+				</h1>
+				<h1 className='resultsHead'>
 					Компания: {this.props.company}
-				</ResultsHead>
-				<RadarChart
-						captions={captions}
-						data={dataResult}
-						size={500}
+				</h1>
+				<Radar
+					width={450}
+					height={450}
+					padding={70}
+					domainMax={10}
+					fontSize= {48}
+
+					highlighted={null}
+					onHover={(point) => {
+						if (point) {
+						console.log('hovered over a data point');
+						} else {
+						console.log('not over anything');
+						}
+					}}
+					data={{
+						variables: [
+						{key: 'sales', label: 'Модель продаж'},
+						{key: 'planning', label: 'Планирование'},
+						{key: 'voronka', label: 'Воронка'},
+						{key: 'offer', label: 'Оффер'},
+						{key: 'hire', label: 'Найм'},
+						{key: 'teaching', label: 'Обучение  и адаптация'},
+						{key: 'motivation', label: 'Мотивация'},
+						{key: 'leading', label: 'Управление'},
+						{key: 'scripts', label: 'Скрипты'},
+						{key: 'crm', label: 'CRM'},
+						{key: 'commercial', label: 'Коммерческое предложение'},
+						{key: 'clients', label: 'Подогрев клиентов'},
+						],
+						sets: [
+						{
+								values: {
+								sales: countResult(1),
+								planning: countResult(2),
+								voronka: countResult(3),
+								offer: countResult(4),
+								hire: countResult(5),
+								teaching: countResult(6),
+								motivation: countResult(7),
+								leading: countResult(8),
+								scripts: countResult(9),
+								crm: countResult(10),
+								commercial: countResult(11),
+								clients: countResult(12),
+							},
+						},
+						],
+					}}
 					/>
 
-				<ButtonBottom style={{marginTop:'20px'}} onClick={window.print}>
+				{/* <div className='buttonBottom' style={{marginTop:'20px'}} onClick={window.print}>
 					Скачать результаты в PDF
-				</ButtonBottom>
-			</First>
+				</div> */}
+			</div>
 
 
 
-			<Second>
-				<p> 1 августа 2019 (Москва) <br></br>конференция от Grebenuk Resulting </p>
-				<div style={{maxWidth:'65%', border:'solid', padding: '5px'}}> Заполни форму ниже и мы вышлем вам бесплатный билет на конференцию </div>
-				<Text>
-				<p> Спикеры – топ-директора по продажам: </p>
-				<ul>
-					<li>BlackStar</li>
-					<li>AmoCRM</li>
-					<li>1C Bitrix</li>
-					<li>Marsh</li>
-					<li>Михаил Гребенюк (создатель этого теста)</li>
-				</ul>
-				</Text>
-					<Third style={{border:'2px', padding: '7px'}}>
+			<div className='second'>
+			<h1 className='resultsHead'>
+				Что теперь с этим делать?
+			</h1>
+				<p className='textAnnounc'>Мы приглашаем вас на практическую конференцию <br></br> ТОП-директора по продажам корпораций на одной сцене 
+				поделятся вживую, как они <strong><br></br>«все это» </strong> внедряли
+				</p>				
+				<div className='textBox'>
+					<div>
+						<p> Спикеры:</p>
+						<ul>
+							<li>BlackStar</li>
+							<li>AmoCRM</li>
+							<li>1C Bitrix</li>
+							<li>Marsh</li>
+							<li>Михаил Гребенюк (создатель этого теста)</li>
+						</ul>
+					</div>
+					<div>
+						<p> 1 августа 2019 Москва <br />(9:30-19:00)<br />Гостиница "Бородино"<br />Адрес: Ул. Русаковская, дом 13, строение 5<br /> 
+						</p>
+					</div>
+				</div>
+				{/* <p>БЕСПЛАТНЫЕ БИЛЕТЫ<br />для участников теста<br />Заполните форму и мы вышлем вам <br />пригласительный для вас и еще 1 для вашего друга</p> */}
+
+				<a className='buttonDirect' href="https://test300.ru/end/" style={{margin:'20px 20px 0 20px'}}>Получить билеты на конференцию</a>
+
+					{/* <Third style={{border:'2px', padding: '7px'}}>
 						<input placeholder="Имя" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
 						<input placeholder="Телефон" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
-						<ButtonBottom style={{margin:'20px 20px 0 20px'}}>Получить билет</ButtonBottom>
-					</Third>
+						<input placeholder="Введтие e-mail" style={{border:'solid', borderRadius: '10px', fontSize: '14px', margin: '2% 0', width: '90%', height: '30px', padding: '5px'}}/>
+						<ButtonBottom style={{margin:'20px 20px 0 20px'}}>Получить билеты на конференцию</ButtonBottom>
+					</Third> */}
 
-			</Second>
-		</DivWrap>
+			</div>
+		</div>
 		);
 	}
 }

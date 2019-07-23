@@ -1,6 +1,113 @@
 
+.tabHead {
+	display: flex;
+	margin: 5px;
+}	
+
+.flexRadio {
+	display: flex;
+	padding: 10px 0 40px 0;
+}
+
+.flexAll {
+	display: flex;
+	flex-direction: column;
+}
+
+
+.flexAll2 {
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.flexAll3 {
+	display: flex;
+	flex-direction: row;
+	break-inside: avoid-column;
+	padding-right: 10px;
+}
+
+
+.flexAll4 {
+	display: flex;
+	font-size: 16px;
+	flex-direction: column;
+	padding: 60px 85px;
+}
+
+.flexAll5 {
+	display: flex;
+	flex-direction: column;
+}
+
+.smallFlex {
+	display: flex;
+	align-items: center;
+	height: 10px;
+	cursor: pointer;
+}
+
+.boxText {
+	text-align: center;
+}
+
+.warn {
+	text-align:center;
+	padding: 5px 15px;
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 10px;
+	background-color: #FFE4E1;
+	height: 30px;
+}
+		
+.wrapQ {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 5px 15px;
+	font-family: 'Roboto',Arial,sans-serif;	
+}
+
+.subTitle {
+	font-size: 24px;
+	margin: 5px 0;
+	text-align: center;
+}
+
+.columns {
+	-webkit-column-count: 2;  
+	-moz-column-count: 2;  
+	column-count: 2;  
+	padding: 20px 0;
+	column-gap: 6em;
+	break-after: avoid;
+	width: 75%;
+    column-rule: 1px solid #ccc;
+    font-size: 18px;
+	line-height: 1.55;
+}
+
+.buttonBottom {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px 25px;
+	cursor: pointer;
+	margin: 15px 0 15px 0;
+	border-radius: 10px;
+	background-color: red;
+	border: 2px solid;
+	color: white;
+	text-decoration-style: solid;
+}
+
 .class1 {
-	background-color: #FFD700		
+	background-color: #FFD700;
 }
 
 .class2 {
@@ -12,6 +119,80 @@ button {
 	font-family: 'Roboto',Arial,sans-serif;	
 }
 
-text {
-	font-size: 8px;
+.inputBox {
+	display: block;
+	width: 100%;
+	height: 20%;
 }
+
+.textWarn {
+	margin-left: 5px;
+}
+
+.inputStyle {
+	border-radius: 10px;
+	font-size: 16px;
+	margin: 1% 0;
+	max-width: 60%;
+	height: 40px; 
+}
+
+.inputMargin {
+	margin: 1%;
+}
+
+@media (max-width: 1100px) {
+	.columns {
+		column-rule: none;
+	}
+}
+
+	@media (max-width: 850px) {
+		.columns {
+			column-rule: none;
+			column-count: unset;
+			width: 85%;
+		}
+		
+		.flexAll4 {
+			font-size: 14px;
+			padding: 40px 55px;
+		}
+
+		.inputStyle {
+			font-size: 14px;
+			max-width: 90%;
+			height: 30px; 
+		}
+
+	}
+		
+		@media (max-width: 767px) {
+			.flexAll4 {
+				font-size: 12px;
+				padding: 20px 35px;
+			}
+
+			.textWarn {
+				font-size: 10px;
+			}
+
+			.flexAll3 {
+				font-size: 16px;
+			}
+
+			.subTitle {
+				font-size: 16px;		
+			}
+
+			.buttonBottom {
+				padding: 10px 15px;
+			}
+		}
+
+			@media (max-width: 400px) {
+				.flexAll4 {
+					font-size: 10px;
+					padding: 10px 20px;
+				}
+			}
