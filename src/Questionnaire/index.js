@@ -197,7 +197,7 @@ return (
 		{this.state.resultsReady&&<Results data={this.state.data} company={this.state.company}/>}
 
 		<Modal visible={this.state.visible} width='80%' effect="fadeInUp" 
-		// onClickAway={() => this.closeModal()}
+		onClickAway={() => this.closeModal()}
 		>
 			<div className='flexAll4'>
 			<label>

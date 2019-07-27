@@ -5,16 +5,34 @@ import {render} from 'react-dom';
 import jsPDF from 'jspdf';
 import RadarChart from 'react-svg-radar-chart';
 import 'react-svg-radar-chart/build/css/index.css'
-import Radar from 'react-d3-radar';
-
+// import Radar from 'react-d3-radar';
+import {Radar, Line} from 'react-chartjs-2';
 import styled from 'styled-components';
 import './results.css';
+import html2canvas from 'html2canvas';
 
 class Results extends React.Component {	
 
+
+	handleClick = () => {
+		html2canvas(document.getElementById('canvas')).then(function(canvas) {
+			// document.body.appendChild(canvas);
+			window.scrollTo(0, 0);
+			var doc = new jsPDF({ 
+				orientation: 'landscape',
+				unit: 'in',
+				format: [4000, 4000]
+			});
+			doc.addImage(canvas, 'PNG', 0, 0);
+			doc.save('fac.pdf');
+	});	
+	}
+	
 	render() {
 		const data = this.props.data;	
 	
+		const chartOptions = {}
+
 		function countResult(number) {
 			let result = 0;
 			for (let stage = 1; stage <= 4; stage++) {
@@ -35,7 +53,46 @@ class Results extends React.Component {
 				<h1 className='resultsHead'>
 					Компания: {this.props.company}
 				</h1>
-				<Radar
+
+				< Radar  id='canvas' data= {{
+					labels: 
+					[
+						"Модель продаж",
+						'Планирование',
+						'Воронка',
+						'Оффер',
+						"Найм",
+						'Обучение  и адаптация',
+						'Мотивация',
+						'Управление',
+						'Скрипты',
+						'CRM',
+						'Коммерческое предложение',
+						'Подогрев клиентов'
+					],
+					datasets: [{
+						backgroundColor: 'rgb(255, 99, 132)',
+						borderColor: 'rgb(255, 99, 132)',
+						data: [
+							countResult(1),
+							countResult(2),
+							countResult(3),
+							countResult(4),
+							countResult(5),
+							countResult(6),
+							countResult(7),
+							countResult(8),
+							countResult(9),
+							countResult(10),
+							countResult(11),
+							countResult(12)
+						]
+						
+					}]	
+				}} />
+
+
+				{/* <Radar
 					width={450}
 					height={450}
 					padding={70}
@@ -84,11 +141,16 @@ class Results extends React.Component {
 						},
 						],
 					}}
-					/>
+					/> */}
 
-				{/* <div className='buttonBottom' style={{marginTop:'20px'}} onClick={window.print}>
+				<button 
+				onClick={this.handleClick}
+				className='buttonBottom' 
+				style={{marginTop:'20px'}}
+				// onClick={window.print}
+				>
 					Скачать результаты в PDF
-				</div> */}
+				</button>
 			</div>
 
 
